@@ -14,7 +14,7 @@ def get_last(value):
 
 
 def print_cyan(text):
-        return f"\033[96m{text}\033[00m"
+    return f"\033[96m{text}\033[00m"
 
 
 home_path = os.path.expanduser("~")
@@ -46,7 +46,11 @@ for i, val in enumerate(reverse_comms):
         and reverse_comms[i + 1].startswith("git commit ")
         and reverse_comms[i + 2].startswith("git add ")
     ):
-        to_execute = [reverse_comms[i + 2], reverse_comms[i + 1], val]
+        to_execute = [
+            reverse_comms[i + 2],
+            reverse_comms[i + 1],
+            "git push origin `git branch --show-current`"
+        ]
         break
 
 if len(to_execute) == 0:

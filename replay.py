@@ -5,6 +5,7 @@ import subprocess
 import sys
 
 
+
 def get_last(value):
     string = value.decode("utf-8")
     array = string.split(";")

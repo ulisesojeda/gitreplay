@@ -5,7 +5,6 @@ import subprocess
 import sys
 
 
-
 def get_last(value):
     string = value.decode("utf-8")
     array = string.split(";")
@@ -19,7 +18,7 @@ def print_cyan(text):
 
 
 home_path = os.path.expanduser("~")
-env_shell = os.path.split(os.environ['SHELL'])
+env_shell = os.path.split(os.environ["SHELL"])
 
 if env_shell[-1] == "zsh":
     history_file = ".zsh_history"
@@ -41,12 +40,17 @@ reverse_comms = list(reversed(comms))
 
 for command in reverse_comms:
     if command.startswith("git commit "):
-        proc = subprocess.run("git ls-files . --exclude-standard --others -m", capture_output=True, shell=True, check=True)
+        proc = subprocess.run(
+            "git ls-files . --exclude-standard --others -m",
+            capture_output=True,
+            shell=True,
+            check=True,
+        )
         files = [f for f in proc.stdout.decode("utf-8").split("\n") if f]
         to_execute = [
             *[f"git add {f}" for f in files],
             command,
-            "git push origin `git branch --show-current`"
+            "git push origin `git branch --show-current`",
         ]
         break
 

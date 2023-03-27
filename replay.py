@@ -51,6 +51,7 @@ for command in reverse_comms:
         break
 
 
+
 if len(to_execute) == 0:
     print("No recent git commands to execute")
     sys.exit(1)

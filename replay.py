@@ -39,20 +39,17 @@ comms = [get_last(d) for d in data[-1000:]]
 to_execute = []
 reverse_comms = list(reversed(comms))
 
-for i, val in enumerate(reverse_comms):
-    if (
-        val.startswith("git push")
-        and val.find(" master ") == -1
-        and i + 2 < len(reverse_comms)
-        and reverse_comms[i + 1].startswith("git commit ")
-        and reverse_comms[i + 2].startswith("git add ")
-    ):
+for command in reverse_comms:
+    if command.startswith("git commit "):
+        proc = subprocess.run("git ls-files . --exclude-standard --others -m", capture_output=True, shell=True, check=True)
+        files = [f for f in proc.stdout.decode("utf-8").split("\n") if f]
         to_execute = [
-            reverse_comms[i + 2],
-            reverse_comms[i + 1],
+            *[f"git add {f}" for f in files],
+            command,
             "git push origin `git branch --show-current`"
         ]
         break
+
 
 if len(to_execute) == 0:
     print("No recent git commands to execute")

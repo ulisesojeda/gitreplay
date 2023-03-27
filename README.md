@@ -1,5 +1,5 @@
-Replay your latest git add/commit/push commands
+## Replay your latest git commit with the current changes and push it to the remote branch.
 
-## Support for Unix-like systems
-## Supported shells: bash, zsh
+### Support for Unix-like systems
+### Supported shells: bash, zsh
 
